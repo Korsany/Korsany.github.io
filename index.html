@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Семён's Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .dark-theme {
+            background-color: #1b5e20;
+            color: #ffffff;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+        .dark-theme .container {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        h1 {
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        p {
+            margin: 5px 0;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #2e7d32;
+            color: #ffffff;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1b5e20;
+        }
+        .dark-theme button {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .dark-theme button:hover {
+            background-color: #c5e1a5;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #2e7d32;
+            font-size: 1.2em;
+        }
+        .dark-theme .social-links a {
+            color: #ffffff;
+        }
+        .icon {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <div class="container">
+        <h1 id="name">Семён</h1>
+        <p><strong>Nick:</strong> <span id="nick">Korsany</span></p>
+        <p><strong>Gender:</strong> <span id="gender">Мужской</span></p>
+        <p>Люблю классическую музыку</p>
+        <p>Пишу на Python</p>
+        <button class="theme-button" onclick="toggleTheme()" id="themeButton"><i class="fas fa-sun icon"></i> Light Theme</button>
+        <button class="language-button" onclick="toggleLanguage()" id="languageButton"><i class="fas fa-globe icon"></i> Russian</button>
+        <div class="social-links">
+            <a href="https://t.me/korsany" target="_blank"><i class="fab fa-telegram-plane icon"></i> Telegram</a>
+            <a href="https://t.me/korsany_channel" target="_blank"><i class="fab fa-telegram icon"></i> Telegram Channel</a>
+        </div>
+    </div>
+
+    <script>
+        let isDarkTheme = false;
+
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            document.body.className = isDarkTheme ? 'dark-theme' : 'light-theme';
+            const themeButton = document.getElementById('themeButton');
+            const icon = themeButton.querySelector('.icon');
+            if (isDarkTheme) {
+                themeButton.textContent = 'Dark Theme';
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                themeButton.textContent = 'Light Theme';
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        }
+
+        let isRussian = true;
+
+        function toggleLanguage() {
+            isRussian = !isRussian;
+            const languageButton = document.getElementById('languageButton');
+            const icon = languageButton.querySelector('.icon');
+            if (isRussian) {
+                document.getElementById('name').textContent = 'Семён';
+                document.getElementById('nick').textContent = 'Korsany';
+                document.getElementById('gender').textContent = 'Мужской';
+                document.querySelectorAll('p')[2].textContent = 'Люблю классическую музыку';
+                document.querySelectorAll('p')[3].textContent = 'Программирую на Python';
+                languageButton.textContent = 'Russian';
+                icon.classList.remove('fa-language');
+                icon.classList.add('fa-globe');
+            } else {
+                document.getElementById('name').textContent = 'Semyon';
+                document.getElementById('nick').textContent = 'Korsany';
+                document.getElementById('gender').textContent = 'Male';
+                document.querySelectorAll('p')[2].textContent = 'I love classical music';
+                document.querySelectorAll('p')[3].textContent = 'I program in Python';
+                languageButton.textContent = 'English';
+                icon.classList.remove('fa-globe');
+                icon.classList.add('fa-language');
+            }
+        }
+    </script>
+</body>
+</html>
