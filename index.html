@@ -82,8 +82,8 @@
         <h1 id="name">Семён</h1>
         <p><strong>Nick:</strong> <span id="nick">Korsany</span></p>
         <p><strong>Gender:</strong> <span id="gender">Мужской</span></p>
-        <p>Люблю классическую музыку</p>
-        <p>Пишу на Python</p>
+        <p id="music_text">Люблю классическую музыку</p>
+        <p id="program_text">Пишу на Python</p>
         <button class="theme-button" onclick="toggleTheme()" id="themeButton"><i class="fas fa-sun icon"></i> Light Theme</button>
         <button class="language-button" onclick="toggleLanguage()" id="languageButton"><i class="fas fa-globe icon"></i> Russian</button>
         <div class="social-links">
@@ -93,11 +93,15 @@
     </div>
 
     <script>
-        let isDarkTheme = false;
+        let isDarkTheme = localStorage.getItem('theme') === 'dark';
+        let isRussian = localStorage.getItem('language') === 'ru' || localStorage.getItem('language') === null;
+        
+        // Установка начальной темы и языка
+        applyTheme();
+        applyLanguage();
 
-        function toggleTheme() {
-            isDarkTheme = !isDarkTheme;
-            document.body.className = isDarkTheme ? 'dark-theme' : 'light-theme';
+        function applyTheme() {
+             document.body.className = isDarkTheme ? 'dark-theme' : 'light-theme';
             const themeButton = document.getElementById('themeButton');
             const icon = themeButton.querySelector('.icon');
             if (isDarkTheme) {
@@ -111,18 +115,23 @@
             }
         }
 
-        let isRussian = true;
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+            applyTheme();
 
-        function toggleLanguage() {
-            isRussian = !isRussian;
+        }
+       
+        function applyLanguage()
+        {
             const languageButton = document.getElementById('languageButton');
             const icon = languageButton.querySelector('.icon');
             if (isRussian) {
                 document.getElementById('name').textContent = 'Семён';
                 document.getElementById('nick').textContent = 'Korsany';
                 document.getElementById('gender').textContent = 'Мужской';
-                document.querySelectorAll('p')[2].textContent = 'Люблю классическую музыку';
-                document.querySelectorAll('p')[3].textContent = 'Программирую на Python';
+                document.getElementById('music_text').textContent = 'Люблю классическую музыку';
+                document.getElementById('program_text').textContent = 'Программирую на Python';
                 languageButton.textContent = 'Russian';
                 icon.classList.remove('fa-language');
                 icon.classList.add('fa-globe');
@@ -130,12 +139,18 @@
                 document.getElementById('name').textContent = 'Semyon';
                 document.getElementById('nick').textContent = 'Korsany';
                 document.getElementById('gender').textContent = 'Male';
-                document.querySelectorAll('p')[2].textContent = 'I love classical music';
-                document.querySelectorAll('p')[3].textContent = 'I program in Python';
+                document.getElementById('music_text').textContent = 'I love classical music';
+                document.getElementById('program_text').textContent = 'I program in Python';
                 languageButton.textContent = 'English';
                 icon.classList.remove('fa-globe');
                 icon.classList.add('fa-language');
             }
+        }
+
+        function toggleLanguage() {
+            isRussian = !isRussian;
+             localStorage.setItem('language', isRussian ? 'ru' : 'en');
+             applyLanguage();
         }
     </script>
 </body>
