@@ -14,51 +14,56 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            transition: background-color 0.3s, color 0.3s;
-            background-color: #e8f5e9;
-            color: #2e7d32;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            background-color: #f0f4c3; /* Светлый фон */
+            color: #33691e; /* Темно-зеленый текст */
         }
         .dark-theme {
-            background-color: #1b5e20;
-            color: #ffffff;
+            background-color: #263238; /* Темный фон */
+            color: #ffffff; /* Белый текст */
         }
         .container {
             text-align: center;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             max-width: 400px;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
         }
         .dark-theme .container {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.85);
         }
         h1 {
             margin-bottom: 10px;
-            font-size: 2em;
+            font-size: 2.5em;
+            animation: fadeIn 0.5s;
         }
         p {
             margin: 5px 0;
+            animation: fadeIn 0.5s;
         }
         button {
             margin: 10px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            background-color: #2e7d32;
+            background-color: #33691e; /* Темно-зеленый фон кнопки */
             color: #ffffff;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
         button:hover {
-            background-color: #1b5e20;
+            background-color: #4caf50; /* Более светлый зеленый при наведении */
+            transform: scale(1.05); /* Увеличение кнопки при наведении */
         }
         .dark-theme button {
-            background-color: #e8f5e9;
-            color: #2e7d32;
+            background-color: #e8f5e9; /* Светлый фон кнопки в темной теме */
+            color: #33691e;
         }
         .dark-theme button:hover {
-            background-color: #c5e1a5;
+            background-color: #c5e1a5; /* Светло-зеленый при наведении в темной теме */
         }
         .social-links {
             margin-top: 20px;
@@ -66,14 +71,30 @@
         .social-links a {
             margin: 0 10px;
             text-decoration: none;
-            color: #2e7d32;
-            font-size: 1.2em;
+            color: #33691e;
+            font-size: 1.5em;
+            transition: color 0.3s ease;
         }
         .dark-theme .social-links a {
             color: #ffffff;
         }
+        .social-links a:hover {
+            color: #4caf50; /* Цвет ссылки при наведении */
+        }
         .icon {
             margin-right: 5px;
+        }
+        
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
