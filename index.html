@@ -1,178 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Семён's Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Семён - Био [Material Dark Green]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-green': {
+                light: '#66bb6a',
+                DEFAULT: '#43a047',
+                dark: '#388e3c',
+              },
+              'base': {
+                '900': '#121212',
+                '800': '#1e1e1e',
+                '700': '#2a2a2a',
+                '600': '#3c3c3c',
+              },
+              'text': {
+                'primary': '#e0e0e0',
+                'secondary': '#b0b0b0',
+                'disabled': '#757575'
+              }
+            },
+            boxShadow: {
+              'md-custom': '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.12)',
+              'lg-custom': '0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.12)',
+              'xl-custom': '0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.12)',
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', '"Noto Sans"', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"', '"Noto Color Emoji"'],
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            transition: background-color 0.5s ease, color 0.5s ease;
-            background-color: #f0f4c3; /* Светлый фон */
-            color: #33691e; /* Темно-зеленый текст */
+            font-family: 'Inter', sans-serif;
         }
-        .dark-theme {
-            background-color: #263238; /* Темный фон */
-            color: #ffffff; /* Белый текст */
+        .smooth-show {
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out, padding 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
         }
-        .container {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            transform: translateY(0);
-            transition: transform 0.3s ease;
+        @keyframes cardEnter {
+            from { opacity: 0; transform: translateY(15px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .dark-theme .container {
-            background-color: rgba(0, 0, 0, 0.85);
+        .card-enter-active {
+            animation: cardEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
-        h1 {
-            margin-bottom: 10px;
-            font-size: 2.5em;
-            animation: fadeIn 0.5s;
-        }
-        p {
-            margin: 5px 0;
-            animation: fadeIn 0.5s;
-        }
-        button {
-            margin: 10px;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #33691e; /* Темно-зеленый фон кнопки */
-            color: #ffffff;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        button:hover {
-            background-color: #4caf50; /* Более светлый зеленый при наведении */
-            transform: scale(1.05); /* Увеличение кнопки при наведении */
-        }
-        .dark-theme button {
-            background-color: #e8f5e9; /* Светлый фон кнопки в темной теме */
-            color: #33691e;
-        }
-        .dark-theme button:hover {
-            background-color: #c5e1a5; /* Светло-зеленый при наведении в темной теме */
-        }
-        .social-links {
-            margin-top: 20px;
-        }
-        .social-links a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #33691e;
-            font-size: 1.5em;
-            transition: color 0.3s ease;
-        }
-        .dark-theme .social-links a {
-            color: #ffffff;
-        }
-        .social-links a:hover {
-            color: #4caf50; /* Цвет ссылки при наведении */
-        }
-        .icon {
-            margin-right: 5px;
-        }
-        
-        /* Анимация появления */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .btn-icon {
+            width: 1.125rem;
+            height: 1.125rem;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.625rem;
+            flex-shrink: 0;
         }
     </style>
 </head>
-<body class="light-theme">
-    <div class="container">
-        <h1 id="name">Семён</h1>
-        <p><strong>Nick:</strong> <span id="nick">Korsany</span></p>
-        <p><strong>Gender:</strong> <span id="gender">Мужской</span></p>
-        <p id="music_text">Люблю классическую музыку</p>
-        <p id="program_text">Пишу на Python</p>
-        <button class="theme-button" onclick="toggleTheme()" id="themeButton"><i class="fas fa-sun icon"></i> Light Theme</button>
-        <button class="language-button" onclick="toggleLanguage()" id="languageButton"><i class="fas fa-globe icon"></i> Russian</button>
-        <div class="social-links">
-            <a href="https://t.me/korsany" target="_blank"><i class="fab fa-telegram-plane icon"></i> Telegram</a>
-            <a href="https://t.me/korsany_channel" target="_blank"><i class="fab fa-telegram icon"></i> Telegram Channel</a>
+<body class="antialiased bg-base-900 text-text-primary">
+    <div id="root">
+        <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; font-size: 1.25rem; color: #555; background-color: #121212;">
+            Инициализация интерфейса...
         </div>
     </div>
 
-    <script>
-        let isDarkTheme = localStorage.getItem('theme') === 'dark';
-        let isRussian = localStorage.getItem('language') === 'ru' || localStorage.getItem('language') === null;
-        
-        // Установка начальной темы и языка
-        applyTheme();
-        applyLanguage();
+    <script type="text/babel">
+        const { useState, useEffect, Fragment } = React;
 
-        function applyTheme() {
-             document.body.className = isDarkTheme ? 'dark-theme' : 'light-theme';
-            const themeButton = document.getElementById('themeButton');
-            const icon = themeButton.querySelector('.icon');
-            if (isDarkTheme) {
-                themeButton.textContent = 'Dark Theme';
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            } else {
-                themeButton.textContent = 'Light Theme';
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            }
-        }
+        const ChevronDownIcon = ({ className }) => (
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            </svg>
+        );
 
-        function toggleTheme() {
-            isDarkTheme = !isDarkTheme;
-            localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
-            applyTheme();
+        const GithubIcon = ({ className }) => (
+            <svg className={className} viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+            </svg>
+        );
 
-        }
-       
-        function applyLanguage()
-        {
-            const languageButton = document.getElementById('languageButton');
-            const icon = languageButton.querySelector('.icon');
-            if (isRussian) {
-                document.getElementById('name').textContent = 'Семён';
-                document.getElementById('nick').textContent = 'Korsany';
-                document.getElementById('gender').textContent = 'Мужской';
-                document.getElementById('music_text').textContent = 'Люблю классическую музыку';
-                document.getElementById('program_text').textContent = 'Программирую на Python';
-                languageButton.textContent = 'Russian';
-                icon.classList.remove('fa-language');
-                icon.classList.add('fa-globe');
-            } else {
-                document.getElementById('name').textContent = 'Semyon';
-                document.getElementById('nick').textContent = 'Korsany';
-                document.getElementById('gender').textContent = 'Male';
-                document.getElementById('music_text').textContent = 'I love classical music';
-                document.getElementById('program_text').textContent = 'I program in Python';
-                languageButton.textContent = 'English';
-                icon.classList.remove('fa-globe');
-                icon.classList.add('fa-language');
-            }
-        }
+        const TelegramIcon = ({ className }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.999 0C5.372 0 0 5.372 0 12s5.372 12 11.999 12C18.626 24 24 18.626 24 12S18.626 0 11.999 0ZM17.703 7.254L15.03 17.868c-.208.822-.768 1.03-1.42.638l-4.526-3.334-2.19 2.11c-.242.242-.448.448-.9.448l.128-4.61L5.08 10.867c-.84-.262-.84-1.022.153-1.402l11.496-4.43c.693-.262 1.253.154.97 1.22Z"/>
+            </svg>
+        );
 
-        function toggleLanguage() {
-            isRussian = !isRussian;
-             localStorage.setItem('language', isRussian ? 'ru' : 'en');
-             applyLanguage();
-        }
+
+        const App = () => {
+            const [showCreations, setShowCreations] = useState(true);
+            const [showPassions, setShowPassions] = useState(false);
+            const [isLoaded, setIsLoaded] = useState(false);
+
+            useEffect(() => {
+                const timer = setTimeout(() => setIsLoaded(true), 50);
+                return () => clearTimeout(timer);
+            }, []);
+
+            const bioData = {
+                greeting: "Привет!",
+                name: "Я Семён.",
+                intro: "14 годиков.\nПревращаю идеи в код на Python 🐍\n(и немного на Rust 🦀).",
+                creationsTitle: "Мои творения",
+                creations: [
+                    { text: "ТГ-боты, которые не спят (aiogram 3)", emoji: "🤖" },
+                    { text: "Сайты, которые не лагают (HTML/CSS/JS)", emoji: "🌐" },
+                    { text: "Игры, в которые хочется играть (Godot 4)", emoji: "🎮" },
+                ],
+                status: "Вечный студент Web Dev & Game Dev",
+                passionsTitle: "Фанатею от",
+                passions: [
+                    { text: "нейросетей (они захватят мир?)", emoji: "🤔" },
+                    { text: "хорошей музыки", emoji: "🎧" },
+                ],
+                githubUser: "Korsany",
+                telegramUser: "korsany"
+            };
+
+            const ToggleButton = ({ onClick, isShown, children, className = '' }) => (
+                <button
+                    onClick={onClick}
+                    className={`w-full flex items-center justify-between bg-base-700 hover:bg-opacity-80 text-text-primary font-medium py-3 px-4 rounded-lg shadow-md-custom focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-opacity-75 transition-all duration-200 mb-2 ${className}`}
+                >
+                    <span className="truncate">{children}</span>
+                    <ChevronDownIcon className={`w-5 h-5 text-text-secondary transform transition-transform duration-300 ${isShown ? 'rotate-180' : 'rotate-0'}`} />
+                </button>
+            );
+
+            const InfoBlock = ({ isShown, children }) => (
+                 <div
+                    className={`smooth-show bg-base-700 bg-opacity-50 p-4 rounded-md ${isShown ? 'max-h-[500px] opacity-100 py-4 mt-1 mb-3' : 'max-h-0 opacity-0 py-0 mt-0 mb-0'}`}
+                >
+                    {children}
+                </div>
+            );
+
+            const LinkButton = ({ href, children, icon: Icon, className = '' }) => (
+                <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-full sm:w-auto flex items-center justify-center text-text-primary font-medium py-2.5 px-5 rounded-md shadow-md-custom focus:outline-none focus:ring-2 focus:ring-opacity-75 transition-all duration-200 transform hover:-translate-y-px hover:shadow-lg-custom ${className}`}
+                >
+                    {Icon && <Icon className="btn-icon" />}
+                    {children}
+                </a>
+            );
+
+
+            return (
+                <div className="min-h-screen flex items-center justify-center p-3 sm:p-4 selection:bg-brand-green selection:text-base-900">
+                    <div
+                        className={`bg-base-800 shadow-xl-custom rounded-xl p-6 sm:p-8 max-w-lg w-full text-center ${isLoaded ? 'card-enter-active' : 'opacity-0'}`}
+                    >
+                        <header className="mb-6">
+                            <h1 className="text-3xl sm:text-4xl font-bold mb-1">
+                                {bioData.greeting} <span className="text-brand-green">{bioData.name}</span>
+                            </h1>
+                            <div className="text-text-secondary text-md sm:text-lg leading-relaxed">
+                                {bioData.intro.split('\n').map((line, index, arr) => (
+                                    <Fragment key={index}>
+                                        {line}
+                                        {index < arr.length - 1 && <br />}
+                                    </Fragment>
+                                ))}
+                            </div>
+                        </header>
+
+                        <section className="mb-5 text-left">
+                            <ToggleButton onClick={() => setShowCreations(!showCreations)} isShown={showCreations}>
+                                {bioData.creationsTitle}
+                            </ToggleButton>
+                            <InfoBlock isShown={showCreations}>
+                                <ul className="space-y-2.5">
+                                    {bioData.creations.map((item, index) => (
+                                        <li key={index} className="flex items-center text-text-primary">
+                                            <span className="text-xl mr-3 opacity-80">{item.emoji}</span>
+                                            <span className="text-sm sm:text-base">{item.text}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </InfoBlock>
+                        </section>
+
+                        <section className="my-6">
+                             <p className="text-brand-green-light italic text-sm sm:text-md px-3 py-1.5 border border-base-700 rounded-md bg-base-700 bg-opacity-30 inline-block">{bioData.status}</p>
+                        </section>
+
+                        <section className="mb-6 text-left">
+                             <ToggleButton onClick={() => setShowPassions(!showPassions)} isShown={showPassions}>
+                                {bioData.passionsTitle}
+                             </ToggleButton>
+                             <InfoBlock isShown={showPassions}>
+                                <div className="space-y-2.5">
+                                    {bioData.passions.map((passion, index) => (
+                                        <p key={index} className="flex items-center text-text-primary">
+                                           <span className="text-xl mr-3 opacity-80">{passion.emoji}</span>
+                                           <span className="text-sm sm:text-base">{passion.text}</span>
+                                        </p>
+                                    ))}
+                                 </div>
+                            </InfoBlock>
+                        </section>
+
+                        <footer className="mt-8 pt-6 border-t border-base-700">
+                            <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4">
+                                <LinkButton
+                                    href={`https://github.com/${bioData.githubUser}`}
+                                    icon={GithubIcon}
+                                    className="bg-brand-green hover:bg-brand-green-light text-base-900 focus:ring-brand-green-dark"
+                                >
+                                    GitHub
+                                </LinkButton>
+                                <LinkButton
+                                    href={`https://t.me/${bioData.telegramUser}`}
+                                    icon={TelegramIcon}
+                                    className="bg-base-700 hover:bg-base-600 text-text-primary focus:ring-brand-green"
+                                >
+                                    Telegram
+                                </LinkButton>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<React.StrictMode><App /></React.StrictMode>);
     </script>
 </body>
 </html>
